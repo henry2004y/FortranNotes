@@ -1,0 +1,55 @@
+\begin{lstlisting}[language=Fortran,caption=High level structure of BATS-R-US,frame=tlrb,breaklines=true,columns=fullflexible,label={list:code_structure}] 
+program BATSRUS
+
+  ! Include al the separate modules, variables and functions
+  use modules
+
+  ! Initialization of MPI.
+  call MPI_INIT(iError)
+
+  ! Read input parameter file
+  call read_file('PARAM.in')
+
+  SESSIONLOOP: do
+     call read_init
+     ! Set and check input parameters for this session
+     call set_parameters
+
+     ! Time execution
+     if(iSession==1)then
+        call BATS_setup
+        call BATS_init_session
+     else
+        call BATS_init_session
+     end if
+
+     TIMELOOP: do
+        ! Stop this session if stopping conditions are fulfilled
+        if (stop_condition_true()) EXIT TIMELOOP
+        if(is_time_to_stop())EXIT SESSIONLOOP
+
+        call timing_step(n_step+1)
+
+        call BATS_advance(t_max)
+
+     end do TIMELOOP
+
+     if(IsLastRead)then
+        EXIT SESSIONLOOP
+     else
+        iSession=iSession+1
+     end if
+
+  end do SESSIONLOOP
+
+  call BATS_save_files
+
+  call timing_stop('BATSRUS')
+
+  call BATS_finalize
+
+  call MPI_finalize(iError)
+
+end program BATSRUS
+
+\end{lstlisting}

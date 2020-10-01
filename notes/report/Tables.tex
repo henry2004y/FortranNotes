@@ -1,0 +1,20 @@
+\usepackage{adjustbox}
+
+\begin{table}[t]
+\caption{Platform Infomation}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{|l|l|l|l|r|l|l|l|l|}
+\centering
+\hline
+Name        & Model     & Processor  & Sockets/Node & Cores/Node & Threads/Core & Clock rate (GHz) & RAM/Core (GB) & Cache                                        \\
+\hline
+Blue Waters &           & AMD 6276 Interlagos                     & 2            & 32         & 1            & 2.3              & 2             & L1:32KB/core; L2: 1MB/core                                         \\
+Stampede2   &           & Intel Xeon Phi 7250 ("Knights Landing") & 1            & 68         & 4            & 1.4              & 1.4           & L1: 32KB/core; L2:1MB/two-core tile          \\
+Stampede2   &           & Intel Xeon Platinum 8160 ("Skylake")    & 2            & 48         & 2            & 2.1              & 4             & L1: 32KB/core; L2: 1MB/core; L3: 33MB/socket \\
+Pleiades    & Broadwell & Intel Xeon E5-2680v4                    & 2            & 28         &              & 2.45             & 4.6           & 35 MB for 14 cores                           \\
+Cheyenne    & Broadwell & Intel Xeon E5-2697V4                    & 2            & 36         &              & 2.3              & 1.8           &   \\ 
+\hline                                 
+\end{tabular}
+\end{adjustbox}
+\label{tab:platform}
+\end{table}
